@@ -1,0 +1,12 @@
+{% extends "master.html" %}
+
+{% block content %}
+    <section id="main">
+        {%if name %}
+            <strong>Hello there {{ name }}!</strong> 
+            It's {{ date.strftime("%A %d %B, %Y at %X") }}.
+        {% else %}
+            What's your name? Provide it after /hello/ in the url.
+        {% endif %}
+    </section>
+{% endblock %}
