@@ -7,3 +7,6 @@ load_dotenv()
 class Config:
     FLASK_APP = os.getenv("FLASK_APP", "run.py")
     FLASK_DEBUG = os.getenv("FLASK_DEBUG", "1")
+    GOOGLE_BOOKS_API_KEY = os.getenv("GOOGLE_BOOKS_API_KEY")
+    GOOGLE_BOOKS_API_KEY_SUFFIX = os.getenv("GOOGLE_BOOKS_API_KEY_SUFFIX")
+    GOOGLE_BOOKS_API_BASE_URL = os.getenv("GOOGLE_BOOKS_API_BASE_URL")
