@@ -16,13 +16,16 @@ def home_page():
 
 @root_bp.route("/api")
 def api_page():
-    response = get_volumes(
+    json_response = get_volumes(
         str(current_app.config["GOOGLE_BOOKS_API_BASE_URL"]),
         str(current_app.config["GOOGLE_BOOKS_API_KEY_SUFFIX"])
         )
+
+    df_response = parse_response(json_response)
+    
     return render_template(
         "api.html",
-        response=response
+        response=df_response
         )
 
 
