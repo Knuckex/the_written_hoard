@@ -3,7 +3,7 @@ from requests.adapters import HTTPAdapter
 from urllib3.util import Retry
 
 
-class APIError(Exception):
+class ApiError(Exception):
     """Route various errors into one class - for readability"""
     pass
 
@@ -45,11 +45,13 @@ class ApiClient:
             return response.json()
         
         except requests.exceptions.HTTPError as exc:
-            raise APIError(f"{url} returned {exc.response.status_code}") from exc
+            if exc.response is not None:
+                raise ApiError(f"{url} returned {exc.response.status_code}") from exc
+            raise ApiError(f"{url} return a http error")
         except requests.exceptions.RequestException as exc:
-            raise APIError(f"{url} ran into an issue")
+            raise ApiError(f"{url} ran into an issue")
         except:
-            print("Something went wrong with get_json :(")
+            raise ApiError("Something went wrong with get_json :(")
 
 
 

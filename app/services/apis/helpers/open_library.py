@@ -8,10 +8,11 @@ def search_authors(author: str):
         current_app.config["OPEN_LIBRARY_AUTHORS_SEARCH_URL"],
         {"q": author}
         )
-    
+
+    return data
     #for the purposes of this coursework I am assuming the top result is correct
-    author_id = data.docs[0].key
-    return author_id
+    #author_id = data.docs[0].key
+    #return author_id
 
 
 def get_author(author_id: str):

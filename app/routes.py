@@ -1,5 +1,10 @@
 import re
-from .services.apis.google_books import *
+import pandas as pd
+import json
+
+
+from .services.apis.ApiClient import *
+from .services.apis.helpers.open_library import *
 
 from flask import Blueprint, render_template, request, current_app
 from datetime import datetime
@@ -16,16 +21,13 @@ def home_page():
 
 @root_bp.route("/api")
 def api_page():
-    json_response = get_volumes(
-        str(current_app.config["OPEN_LIBRARY_BASE_URL"]),
-        str(current_app.config["OPEN_LIBRARY_AUTHOR_GET_URL"])
-        )
-
-    df_response = parse_response(json_response)
+    api_response = search_authors("Clive Cussler")
+    print(type(api_response))
+    normalised_response = pd.json_normalize(api_response["docs"][0])
     
     return render_template(
         "api.html",
-        response=df_response
+        response=normalised_response.head()
         )
 
 
