@@ -1,4 +1,5 @@
 from flask import current_app 
+import pandas as pd
 
 def search_authors(author: str):
     """Search authors, return author id based on top result"""
@@ -9,7 +10,22 @@ def search_authors(author: str):
         {"q": author}
         )
 
-    return data
+    data = pd.json_normalize(data["docs"][0])
+
+    #data = pd.read_json(data["docs"][0])
+    author_data = data[["name", 
+                       "birth_date", 
+                       "work_count", 
+                       "ratings_count", 
+                       "ratings_average", 
+                       "ratings_count_1", 
+                       "ratings_count_2", 
+                       "ratings_count_3", 
+                       "ratings_count_4", 
+                       "ratings_count_5" 
+                        ]]
+
+    return author_data
     #for the purposes of this coursework I am assuming the top result is correct
     #author_id = data.docs[0].key
     #return author_id

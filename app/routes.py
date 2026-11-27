@@ -22,12 +22,12 @@ def home_page():
 @root_bp.route("/api")
 def api_page():
     api_response = search_authors("Clive Cussler")
-    print(type(api_response))
-    normalised_response = pd.json_normalize(api_response["docs"][0])
+    #normalised_response = pd.json_normalize(api_response["docs"][0])
+    #print(normalised_response.to_string())
     
     return render_template(
         "api.html",
-        response=normalised_response.head()
+        response=api_response
         )
 
 
