@@ -10,6 +10,7 @@ def search_authors(author: str):
         {"q": author}
         )
 
+    #for the purposes of this coursework I am assuming the top result is correct
     data = pd.json_normalize(data["docs"][0])
 
     author_data = data[["name", 
@@ -25,9 +26,6 @@ def search_authors(author: str):
                         ]]
 
     return author_data
-    #for the purposes of this coursework I am assuming the top result is correct
-    #author_id = data.docs[0].key
-    #return author_id
 
 
 def get_author(author_id: str):

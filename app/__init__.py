@@ -14,4 +14,8 @@ def create_app():
         headers={"User-Agent": "bfmlvl6cw1"}
     )
 
+    app.extensions["poetrydb_api"] = ApiClient(
+        app.config["POETRYDB_BASE_URL"]
+    )
+
     return app

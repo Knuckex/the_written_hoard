@@ -42,7 +42,7 @@ class ApiClient:
         try:
             response = self.session.get(url, params=params, timeout=self.timeout)
             response.raise_for_status()
-            return response.json()
+            response = response.json()
         
         except requests.exceptions.HTTPError as exc:
             if exc.response is not None:
@@ -50,8 +50,12 @@ class ApiClient:
             raise ApiError(f"{url} return a http error")
         except requests.exceptions.RequestException as exc:
             raise ApiError(f"{url} ran into an issue")
-        except:
-            raise ApiError("Something went wrong with get_json :(")
+
+        #some apis will return an error wrapped in a 200 code
+        if isinstance(response, dict) and str(response.get("status", "")).startswith(("4", "5")):
+            raise ApiError(f"{url} returned {response.get('status')}")
+
+        return response
 
 
 
