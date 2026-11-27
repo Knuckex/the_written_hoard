@@ -1,7 +1,10 @@
 {% extends "master.html" %}
 
 {% block content %}
-    <section id="main">
-        Henlo {{response}}
+    <section id="main" class="body-content">
+        Henlo {{ response }}
+        <h3>{{ author_name }}</h3>
+        <img src="data:image/png;base64,{{ pie_chart }}" 
+            alt="Author ratings breakdown as a pie chart"/>
     </section>
 {% endblock %}

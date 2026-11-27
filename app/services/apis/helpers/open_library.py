@@ -2,7 +2,7 @@ from flask import current_app
 import pandas as pd
 
 def search_authors(author: str):
-    """Search authors, return author id based on top result"""
+    """Search authors, return author details as a dataframe"""
 
     api = current_app.extensions["open_library_api"]
     data = api.get_json(
@@ -12,7 +12,6 @@ def search_authors(author: str):
 
     data = pd.json_normalize(data["docs"][0])
 
-    #data = pd.read_json(data["docs"][0])
     author_data = data[["name", 
                        "birth_date", 
                        "work_count", 
